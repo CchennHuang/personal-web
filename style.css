@@ -73,3 +73,10 @@
 @media (max-width: 700px) {
   .hero-actions > .button, .hero-actions > .text-link { font-size: 13px; }
 }
+
+/* Consistent project covers and restrained, visible close-button focus. */
+.close-button:focus-visible { outline: 1px solid #7b8567; outline-offset: 2px; }
+@media (max-width: 700px) {
+ .dialog-top .close-button { min-width: 44px; min-height: 44px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
+}
+
