@@ -9,3 +9,60 @@
 .contact-actions,.result-actions{flex-wrap:wrap}.contact-note>a{font-size:11px;color:var(--ink);border-bottom:1px solid var(--line);display:inline-block;margin-bottom:5px}
 
 .case-cover.furniture{background:#d5d6c5;color:#293e34}.case-cover.factory{background:#bac5b0;color:#253b30}.case-motif{font-family:var(--serif);font-size:150px;line-height:1;position:absolute;right:22px;bottom:53px;opacity:.14}.more-research{margin-top:36px;border-top:1px solid var(--line);padding-top:20px}.more-research>summary{cursor:pointer;font-size:12px;display:flex;justify-content:space-between;padding:12px 0 24px}.more-research .work-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sourcing-process{grid-template-columns:repeat(4,1fr);gap:30px}.case-copy{line-height:1.9;color:#6b786c;margin-bottom:30px}.report-panel li{line-height:1.9}@media(max-width:700px){.sourcing-process,.more-research .work-grid{grid-template-columns:1fr}.case-motif{font-size:125px}}
+
+/* Mobile reading hierarchy */
+@media (max-width: 700px) {
+  html { scroll-padding-top: 70px; }
+  .wrap { width: calc(100% - 40px); }
+  .section { padding-block: 64px; }
+  .header { width: calc(100% - 40px); min-height: 70px; }
+  .brand-name { font-size: 11px; }
+  .brand-name > span { font-size: 10px; }
+  .hero { gap: 26px; padding-block: 42px 42px; }
+  .hero .eyebrow { white-space: normal; font-size: 10px; margin-bottom: 18px; }
+  h1 { font-size: clamp(46px, 12vw, 60px); line-height: 1.05; }
+  h2 { font-size: clamp(38px, 10vw, 48px); line-height: 1.08; }
+  .hero-description { font-size: 15px; line-height: 1.7; margin-top: 20px; }
+  .hero-actions { margin-top: 24px; gap: 12px 20px; }
+  .hero-actions > .text-link, .text-link { font-size: 13px; }
+  .hero-location { font-size: 10px; margin-top: 28px; }
+  .hero-visual { padding-bottom: 0; }
+  .image-frame { height: 250px; }
+  .image-frame figcaption { font-size: 9px; }
+  .visual-note { display: none; }
+  .expertise-strip .wrap > span { font-size: 10px; }
+  .expertise-strip p { font-size: 12px; line-height: 1.7; }
+  .section-heading { gap: 14px; margin-bottom: 28px; }
+  .section-heading > p, .services-intro > p:not(.eyebrow) { font-size: 14px; line-height: 1.7; }
+  .eyebrow, .small-label, .work-toolbar > .small-label { font-size: 10px; }
+  .filters { gap: 24px; }
+  .filters button { font-size: 13px; padding: 9px 0; }
+  .work-grid { gap: 30px; }
+  .report-cover { height: 235px; padding: 20px; }
+  .cover-top, .cover-bottom { font-size: 9px; }
+  .cover-title { font-size: 32px; margin-top: 17px; }
+  .cover-title > span { font-size: 10px; margin-top: 10px; }
+  .case-motif { font-size: 95px; bottom: 30px; }
+  .coffee-art { transform: rotate(-35deg) scale(.7); transform-origin: right bottom; bottom: 35px; }
+  .work-meta { font-size: 10px; margin-top: 14px; }
+  .work-card h3 { font-size: 23px; line-height: 1.2; }
+  .work-card > p, .service-body, .process-grid p, .about-copy > p, .contact-top > p { font-size: 14px; line-height: 1.7; }
+  .sample-link, .more-research > summary { font-size: 13px; }
+  .work-footnote { font-size: 11px; line-height: 1.7; }
+  .service summary strong { font-size: 21px; line-height: 1.2; }
+  .service summary small { font-size: 12px; }
+  .process-grid { gap: 22px; }
+  .process-grid h3 { font-size: 23px; }
+  .about-copy .large-copy { font-size: 23px; line-height: 1.35; }
+  .about-facts { font-size: 9px; line-height: 1.7; }
+  .contact h2 { font-size: clamp(40px, 10vw, 50px); }
+  .contact .button { font-size: 13px; }
+  .contact-note { font-size: 10px; }
+  dialog { width: calc(100% - 24px); padding: 24px 20px; }
+  .report-intro h2, .brief-dialog h2 { font-size: 34px; }
+  .report-intro > p, .report-panel p, .brief-intro { font-size: 14px; line-height: 1.7; }
+  .report-tabs { gap: 15px; flex-wrap: wrap; }
+  .report-tabs button, .brief-dialog label { font-size: 12px; }
+  .report-panel .sample-body { font-size: 16px; }
+  .footer-name > span, .footer > span, .footer > a:last-child { font-size: 9px; }
+}
