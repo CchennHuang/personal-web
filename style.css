@@ -69,3 +69,7 @@
   .report-panel .sample-body { font-size: 16px; }
   .footer-name > span, .footer > span, .footer > a:last-child { font-size: 9px; }
 }
+
+@media (max-width: 700px) {
+  .hero-actions > .button, .hero-actions > .text-link { font-size: 13px; }
+}
