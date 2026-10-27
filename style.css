@@ -66,3 +66,27 @@
   .report-panel .sample-body { font-size: 16px; }
   .footer-name > span, .footer > span, .footer > a:last-child { font-size: 9px; }
 }
+
+/* Mobile dialog and contact alignment */
+@media (max-width: 700px) {
+  .dialog-top { align-items: center; }
+  .close-button {
+    position: relative; flex: 0 0 44px; width: 44px; height: 44px;
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 0; margin: 0 -8px 0 0; border: 0; border-radius: 0;
+    background: transparent; color: inherit; font-size: 0;
+    -webkit-appearance: none; appearance: none;
+  }
+  .close-button::before, .close-button::after {
+    content: ""; position: absolute; width: 16px; height: 1px;
+    background: currentColor; left: 14px; top: 21.5px;
+  }
+  .close-button::before { transform: rotate(45deg); }
+  .close-button::after { transform: rotate(-45deg); }
+  .close-button:focus-visible { outline: 1px solid currentColor; outline-offset: -5px; }
+  .contact-bottom { align-items: stretch; }
+  .contact-actions { display: flex; flex-direction: column; align-items: stretch; gap: 4px; width: 100%; }
+  .contact-actions > .button { width: 100%; padding: 16px 20px; }
+  .contact-actions > .text-link { align-self: stretch; justify-content: space-between; width: 100%; padding: 13px 20px; font-size: 13px; text-align: left; }
+  .contact-note { padding-inline: 20px; }
+}
