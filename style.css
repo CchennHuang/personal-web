@@ -27,7 +27,7 @@
   .hero-actions > .text-link, .text-link { font-size: 13px; }
   .hero-location { font-size: 10px; margin-top: 28px; }
   .hero-visual { padding-bottom: 0; }
-  .image-frame { height: 250px; }
+  .image-frame { height: auto; aspect-ratio: 1 / 1; }
   .image-frame figcaption { font-size: 9px; }
   .hero-visual { padding-bottom: 34px; }
   .visual-note { display: flex; left: 0; bottom: 0; width: min(270px, 90%); gap: 12px; padding: 12px 18px; }
