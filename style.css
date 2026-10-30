@@ -104,3 +104,18 @@ body{color:var(--ink)}h1 em,h2 em{color:inherit}.monogram>span{color:var(--ink)}
 .services{background:#edf0eb;color:#242f28}.services .service-body,.services .service summary small{color:#3e4c42}.about{background:#d8e0d8;color:#202c23}.about h2,.about h2 em,.about .signature,.about-copy .large-copy{color:#202c23}.about-copy>p,.about-facts{color:#303e34}.about-copy>p{font-size:15px;line-height:1.85}.about-facts{font-size:10px}.contact-top>p,.contact-note,.contact-note>a{color:#36483b}dialog{color:#242f28}.report-intro>p,.report-panel p,.case-copy,.brief-intro{color:#3d4d42}
 @media(max-width:700px){.hero{grid-template-columns:1fr;gap:34px}.hero h1{font-size:clamp(39px,10vw,56px);line-height:1.08}.hero-description{font-size:15px;color:#3f4c43}.hero-services-label{padding-top:14px}.hero-service{padding:16px 0}.hero-service strong{font-size:19px}.hero-service p{font-size:14px}.about-copy>p{font-size:15px;line-height:1.8}.hero-actions>.button,.hero-actions>.text-link{font-size:13px}}
 .about .eyebrow,.about .signature span,.hero-location{color:#425247}.about .signature span{font-size:10px}.about-facts{border-color:#95a598}
+
+/* Align work cards and keep the square cover content inside its bounds. */
+#work > .work-grid{align-items:stretch}
+#work > .work-grid .work-card{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;container-type:inline-size}
+#work > .work-grid .work-card:hover #work > .work-grid .report-cover{transform:none;box-shadow:none}
+#work > .work-grid .report-cover{width:100%;flex:none;aspect-ratio:1/1;height:auto;padding:clamp(14px,6cqw,26px);overflow:hidden}
+#work > .work-grid .cover-top{flex:none;align-items:flex-start;font-size:clamp(7px,2.35cqw,9px);line-height:1.35;letter-spacing:.05em;gap:6px;padding-bottom:clamp(8px,2.5cqw,12px)}
+#work > .work-grid .cover-top>span:first-child{white-space:nowrap}
+#work > .work-grid .cover-top>span:last-child{text-align:right}
+#work > .work-grid .cover-title{flex:none;font-size:clamp(23px,10cqw,44px);line-height:1.04;margin-top:clamp(13px,5cqw,22px);color:inherit}
+#work > .work-grid .cover-title>span{font-size:clamp(8px,2.5cqw,10px);line-height:1.4;letter-spacing:.06em;margin-top:clamp(9px,3.5cqw,15px)}
+.coffee #work > .work-grid .cover-title{color:inherit}
+#work > .work-grid .cover-bottom{flex:none;font-size:clamp(7px,2.2cqw,9px);line-height:1.35;letter-spacing:.04em;gap:5px;margin-top:auto}
+#work > .work-grid .cover-bottom>span:last-child{white-space:nowrap;font-size:clamp(8px,2.5cqw,11px)}
+#work > .work-grid .case-motif{font-size:clamp(48px,22cqw,95px);right:6%;bottom:18%;opacity:.1;z-index:0;line-height:1}
