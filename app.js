@@ -26,11 +26,13 @@ document.querySelectorAll('[data-tab]').forEach(tab=>{tab.addEventListener('clic
 
 document.querySelectorAll('[data-report]').forEach(card=>card.addEventListener('click',()=>{activeReport=card.dataset.report;const r=reports[activeReport];document.getElementById('report-series').textContent=r.series+' / SELECTED EXCERPTS';document.getElementById('report-category').textContent=r.category;document.getElementById('report-title').textContent=r.title;document.getElementById('report-description').textContent=r.description;document.getElementById('panel-overview').innerHTML=`<p class="small-label">THE CENTRAL QUESTION</p><h3>${r.question}</h3><p>${r.overview}</p><ul>${r.scope.map(x=>`<li>${x}</li>`).join('')}</ul><table class="sample-table"><thead><tr>${r.table[0].map(x=>`<th scope="col">${x}</th>`).join('')}</tr></thead><tbody>${r.table.slice(1).map(row=>`<tr>${row.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</tbody></table>`;document.getElementById('panel-excerpt').innerHTML=`<p class="small-label">SELECTED ENGLISH ADAPTATION</p><h3>${r.excerptTitle}</h3>${r.paragraphs.map(x=>`<p class="sample-body">${x}</p>`).join('')}<p class="report-note">A short writing sample adapted from the original Chinese-language research. The full report is not reproduced here.</p>`;document.getElementById('panel-contents').innerHTML=`<p class="small-label">RESEARCH STRUCTURE · ABRIDGED</p><h3>How the question is organised</h3><ol>${r.contents.map(x=>`<li>${x}</li>`).join('')}</ol>`;activateTab('overview');openDialog(reportDialog)}));
 
-const cases={furniture:{title:'Furniture Sourcing & Project Coordination',category:'FURNITURE / SOURCING',description:'Loose furniture sourcing for a residential sales gallery and show apartments in Vietnam.',role:'Furniture sourcing & procurement coordination',context:'I acted as a liaison between the client and Chinese manufacturers, coordinating the technical requirements and communication throughout the project.',items:['Reviewed furniture drawings through multiple rounds','Coordinated materials and sample approvals','Clarified specifications with the client and manufacturers']},factory:{title:'Factory Visit & Sourcing Support',category:'FACTORY VISIT / FLOORING',description:'A factory visit for an overseas real estate developer evaluating flooring suppliers in China.',role:'Factory visit & sourcing coordination',context:'I supported the client before and during the visit, from preliminary supplier research through on-site discussions.',items:['Researched the supplier and contacted the manufacturer','Arranged appointments, itinerary and travel logistics','Accompanied the visit and provided Mandarin–English interpretation','Supported the evaluation of flooring products and manufacturing capabilities']}};
+const cases={furniture:{title:'Furniture Sourcing & Project Coordination',category:'FURNITURE / SOURCING',description:'Loose furniture sourcing for a residential sales gallery and show apartments in Vietnam.',role:'Furniture sourcing & procurement coordination',context:'I acted as a liaison between the client and Chinese manufacturers, coordinating furniture requirements, drawing reviews and sample discussions during the sourcing stage.',items:['Reviewed furniture drawings through multiple rounds','Coordinated materials and sample approvals','Clarified specifications with the client and manufacturers']},factory:{title:'Factory Visit & Sourcing Support',category:'FACTORY VISIT / FLOORING',description:'A factory visit for an overseas real estate developer evaluating flooring suppliers in China.',role:'Factory visit & sourcing coordination',context:'I supported the client before and during the visit, from preliminary supplier research through on-site discussions.',items:['Researched the supplier and contacted the manufacturer','Arranged appointments, itinerary and travel logistics','Accompanied the visit and provided Mandarin–English interpretation','Supported the evaluation of flooring products and manufacturing capabilities']}};
 const caseDialog=document.querySelector('#case-dialog');
 document.querySelectorAll('[data-case]').forEach(card=>card.addEventListener('click',()=>{const c=cases[card.dataset.case];document.querySelector('#case-title').textContent=c.title;document.querySelector('#case-category').textContent=c.category;document.querySelector('#case-description').textContent=c.description;document.querySelector('#case-role').textContent=c.role;document.querySelector('#case-context').textContent=c.context;document.querySelector('#case-list').innerHTML=c.items.map(item=>`<li>${item}</li>`).join('');openDialog(caseDialog)}));
 document.querySelector('#case-inquiry').addEventListener('click',()=>{caseDialog.close();openBrief('Supplier & sourcing research')});
-function openBrief(service){if(service)document.querySelector('#brief-service').value=service;openDialog(briefDialog)}
+function syncBriefPriority(){const service=document.querySelector('#brief-service').value;document.querySelector('#brief-output').selectedIndex=service==='Market & industry research'?2:service==='Business reports & China-side support'?1:service==='Help defining the question'?3:0}
+function openBrief(service){if(service){document.querySelector('#brief-service').value=service;syncBriefPriority();briefResult.hidden=true;briefForm.hidden=false;}openDialog(briefDialog)}
+document.querySelector('#brief-service').addEventListener('change',syncBriefPriority);
 document.querySelector('#open-brief').addEventListener('click',()=>openBrief());
 document.querySelectorAll('[data-service]').forEach(b=>b.addEventListener('click',()=>openBrief(b.dataset.service)));
 document.querySelector('#similar-project').addEventListener('click',()=>{reportDialog.close();const service=activeReport==='stone'?'Supplier & sourcing research':'Market & industry research';openBrief(service)});
@@ -38,7 +40,31 @@ document.querySelector('#similar-project').addEventListener('click',()=>{reportD
 const briefForm=document.querySelector('#brief-form');
 const briefResult=document.querySelector('#brief-result');
 const preparedBrief=document.querySelector('#prepared-brief');
-briefForm.addEventListener('submit',e=>{e.preventDefault();const question=document.querySelector('#brief-question');if(!question.value.trim()){question.setCustomValidity('Please add the question you want to explore.');question.reportValidity();return}question.setCustomValidity('');preparedBrief.value=`Hi Chenyu,\n\nI’d like to discuss a project.\n\nService: ${document.querySelector('#brief-service').value}\n\nThe decision / question:\n${question.value.trim()}\n\nPreferred output: ${document.querySelector('#brief-output').value}\nTiming: ${document.querySelector('#brief-timing').value}\n\nCould we define a suitable scope, deliverables and quote?`;briefForm.hidden=true;briefResult.hidden=false;document.querySelector('#copy-status').textContent='';document.querySelector('#copy-brief').innerHTML='Copy brief <span aria-hidden="true">↗︎</span>';document.querySelector('#email-brief').href='mailto:chenyuhuangx@163.com?subject='+encodeURIComponent('Project inquiry — '+document.querySelector('#brief-service').value)+'&body='+encodeURIComponent(preparedBrief.value);preparedBrief.focus()});
+briefForm.addEventListener('submit',e=>{
+ e.preventDefault();
+ const question=document.querySelector('#brief-question');
+ if(!question.value.trim()){question.setCustomValidity('Please describe the product or project.');question.reportValidity();return}
+ question.setCustomValidity('');
+ const value=id=>document.getElementById(id).value.trim();
+ const service=value('brief-service');
+ preparedBrief.value=[
+  'Hi Chenyu,', '', 'I’d like to discuss a sourcing or research request.', '',
+  'Support needed: '+service, '', 'Product / project requirements:', question.value.trim(), '',
+  'Reference link: '+(value('brief-link')||'Not provided'),
+  'Expected quantity: '+(value('brief-quantity')||'To be discussed'),
+  'Destination: '+(value('brief-destination')||'To be discussed'),
+  'Main priority: '+value('brief-output'),
+  'Timing: '+value('brief-timing'),
+  'Name / company: '+(value('brief-company')||'Not provided'), '',
+  'Please let me know whether this fits your scope and what information you need to propose next steps.'
+ ].join('\n');
+ briefForm.hidden=true;briefResult.hidden=false;
+ document.querySelector('#copy-status').textContent='';
+ document.querySelector('#copy-brief').innerHTML='Copy brief <span aria-hidden="true">→</span>';
+ document.querySelector('#email-brief').href='mailto:chenyuhuangx@163.com?subject='+encodeURIComponent('Sourcing inquiry — '+service)+'&body='+encodeURIComponent(preparedBrief.value);
+ preparedBrief.focus();
+});
 document.querySelector('#brief-question').addEventListener('input',e=>e.target.setCustomValidity(''));
 document.querySelector('#edit-brief').addEventListener('click',()=>{briefResult.hidden=true;briefForm.hidden=false;document.querySelector('#brief-question').focus()});
 document.querySelector('#copy-brief').addEventListener('click',async()=>{const status=document.querySelector('#copy-status');try{if(!navigator.clipboard)throw new Error('Clipboard unavailable');await navigator.clipboard.writeText(preparedBrief.value);status.textContent='Copied. Paste your brief into an email or an Upwork message.';document.querySelector('#copy-brief').innerHTML='Copied <span aria-hidden="true">✓</span>'}catch{preparedBrief.focus();preparedBrief.select();status.textContent='Your brief is selected. Copy it with Ctrl+C or ⌘C, then paste it into an email or an Upwork message.'}});
+
